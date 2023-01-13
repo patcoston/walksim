@@ -1,0 +1,19 @@
+#slider {
+  padding: 5px;
+}
+
+#slider label {
+  padding-right: 10px;
+}
+
+#buttons {
+  padding: 5px;
+}
+
+#description {
+  padding: 5px;
+}
+
+#buttons button {
+  margin: 5px;
+}
