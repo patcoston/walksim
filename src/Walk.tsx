@@ -11,20 +11,26 @@ const Walk: React.FC<Props> = () => {
 
   useEffect(() => {
     const intervalID = setInterval(() => {
-      if (speed < 4) {
-        setTimer(prevTimer => prevTimer - 0.1)
+      console.log(Math.random(), speed, timer)
+      if (speed >= 4) {
+        return
       }
-      if (timer <= 0) {
+      setTimer((prevTimer: number) => {
+        let newTimer = (prevTimer - 0.1).toFixed(1)
+        return parseFloat(newTimer)
+      })
+      console.log(timer === 0, timer === 30, timer === 60, timer === 90)
+      if (timer === 0) {
         setTicket(true)
         setTimer(0)
         clearInterval(intervalID)
-      } else if (timer <= 30) {
+      } else if (timer === 30) {
         setWarnings(3)
-      } else if (timer <= 60) {
+      } else if (timer === 60) {
         setWarnings(2)
-      } else if (timer <= 90) {
+      } else if (timer === 90) {
         setWarnings(1)
-      } else {
+      } else if (timer === 120) {
         setWarnings(0)
       }
     }, 100)
