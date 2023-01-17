@@ -10,41 +10,48 @@ const Walk: React.FC<Props> = () => {
   const [ticket, setTicket] = useState(false)
 
   useEffect(() => {
-    const intervalID = setInterval(() => {
-      console.log(Math.random(), speed, timer)
-      if (speed >= 4) {
-        return
-      }
-      setTimer((prevTimer: number) => {
-        let newTimer = (prevTimer - 0.1).toFixed(1)
-        return parseFloat(newTimer)
-      })
-      console.log(timer === 0, timer === 30, timer === 60, timer === 90)
-      if (timer === 0) {
-        setTicket(true)
-        setTimer(0)
-        clearInterval(intervalID)
-      } else if (timer === 30) {
-        setWarnings(3)
-      } else if (timer === 60) {
-        setWarnings(2)
-      } else if (timer === 90) {
-        setWarnings(1)
-      } else if (timer === 120) {
-        setWarnings(0)
-      }
-    }, 100)
-    return () => clearInterval(intervalID)
-  }, [speed, timer])
+    if (speed < 4) {
+      setTimeout(() => {
+        setTimer((prevTimer: number) => {
+          let newTimer = (prevTimer - 0.1).toFixed(1)
+          return parseFloat(newTimer)
+        })
+      }, 100)
+    }
+  })
+
+  useEffect(() => {
+    console.log(
+      Math.random(),
+      speed,
+      timer,
+      timer === 0,
+      timer === 30,
+      timer === 60,
+      timer === 90,
+    )
+    if (timer === 0) {
+      setTicket(true)
+      setTimer(0)
+    } else if (timer === 30) {
+      setWarnings(3)
+    } else if (timer === 60) {
+      setWarnings(2)
+    } else if (timer === 90) {
+      setWarnings(1)
+    } else if (timer === 120) {
+      setWarnings(0)
+    }
+  }, [timer])
 
   const loseWarning = () => {
     setTicket(false)
     if (timer > 60) {
-      setTimer(120)
+      setTimer(120) // lose warning 1 so 0 warnings
     } else if (timer > 30) {
-      setTimer(90)
+      setTimer(90) // lose warning 2 so 1 warning
     } else {
-      setTimer(60)
+      setTimer(60) // lose warning 3 so 2 warnings
     }
   }
 
