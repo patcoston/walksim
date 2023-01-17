@@ -9,8 +9,10 @@ const Walk: React.FC<Props> = () => {
   const [warnings, setWarnings] = useState(0)
   const [ticket, setTicket] = useState(false)
 
+  console.log('RENDER')
+
   useEffect(() => {
-    if (speed < 4) {
+    if (speed < 4 && timer > 0) {
       setTimeout(() => {
         setTimer((prevTimer: number) => {
           let newTimer = (prevTimer - 0.1).toFixed(1)
