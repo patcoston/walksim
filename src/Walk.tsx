@@ -1,14 +1,14 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Walk.css'
 
-interface WalkProps {
-  speed: number
-  timer: number
-  updateTimer: (timer: number) => void
-  updateSpeed: (speed: number) => void
-}
+type NumberFunction = (n: number) => void
 
-const Walk: FC<WalkProps> = (speed, timer, updateTimer, updateSpeed) => {
+const Walk = (
+  speed: number,
+  timer: number,
+  updateTimer: NumberFunction,
+  updateSpeed: NumberFunction,
+) => {
   const [warnings, setWarnings] = useState(0)
   const [ticket, setTicket] = useState(false)
 
@@ -70,7 +70,7 @@ const Walk: FC<WalkProps> = (speed, timer, updateTimer, updateSpeed) => {
       <h1>The Long Walk</h1>
       <h2>Warning/Ticket/Timer Simulator</h2>
       <div id="labels">
-        <div>Timer: {`${timer.toFixed(1)}`}</div>
+        <div>Timer: {`${timer}`}</div>
         <div>Warnings: {warnings}</div>
         <div>Speed: {speed}</div>
         <div>Ticket: {ticket ? 'Yes' : 'No'}</div>
