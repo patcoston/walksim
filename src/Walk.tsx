@@ -1,26 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import './Walk.css'
 
-interface Props {}
+interface WalkProps {
+  speed: number
+  timer: number
+  updateTimer: (timer: number) => void
+  updateSpeed: (speed: number) => void
+}
 
-const Walk: React.FC<Props> = () => {
-  const [timer, setTimer] = useState(120)
-  const [speed, setSpeed] = useState(5)
+const Walk: FC<WalkProps> = (speed, timer, updateTimer, updateSpeed) => {
   const [warnings, setWarnings] = useState(0)
   const [ticket, setTicket] = useState(false)
 
-  console.log('RENDER')
-
-  useEffect(() => {
-    if (speed < 4 && timer > 0) {
-      setTimeout(() => {
-        setTimer((prevTimer: number) => {
-          let newTimer = (prevTimer - 0.1).toFixed(1)
-          return parseFloat(newTimer)
-        })
-      }, 100)
-    }
-  })
+  console.log('RENDER Walk')
 
   useEffect(() => {
     console.log(
@@ -34,7 +26,6 @@ const Walk: React.FC<Props> = () => {
     )
     if (timer === 0) {
       setTicket(true)
-      setTimer(0)
     } else if (timer === 30) {
       setWarnings(3)
     } else if (timer === 60) {
@@ -49,27 +40,27 @@ const Walk: React.FC<Props> = () => {
   const loseWarning = () => {
     setTicket(false)
     if (timer > 60) {
-      setTimer(120) // lose warning 1 so 0 warnings
+      updateTimer(120) // lose warning 1 so 0 warnings
     } else if (timer > 30) {
-      setTimer(90) // lose warning 2 so 1 warning
+      updateTimer(90) // lose warning 2 so 1 warning
     } else {
-      setTimer(60) // lose warning 3 so 2 warnings
+      updateTimer(60) // lose warning 3 so 2 warnings
     }
   }
 
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSpeed(parseFloat(e.target.value))
+    updateSpeed(parseFloat(e.target.value))
   }
 
   const penaltyWarning = () => {
     if (timer > 90) {
-      setTimer(90)
+      updateTimer(90)
     } else if (timer > 60) {
-      setTimer(60)
+      updateTimer(60)
     } else if (timer > 30) {
-      setTimer(30)
+      updateTimer(30)
     } else {
-      setTimer(0)
+      updateTimer(0)
       setTicket(true)
     }
   }
