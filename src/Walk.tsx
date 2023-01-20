@@ -3,14 +3,17 @@ import './Walk.css'
 
 type NumberFunction = (n: number) => void
 
-const Walk = (
+interface WalkProps {
   speed: number,
   timer: number,
   updateTimer: NumberFunction,
   updateSpeed: NumberFunction,
-) => {
+}
+
+const Walk = ( props: WalkProps ) => {
   const [warnings, setWarnings] = useState(0)
   const [ticket, setTicket] = useState(false)
+  const { speed, timer, updateTimer, updateSpeed } = props
 
   console.log('RENDER Walk')
 
