@@ -16,19 +16,33 @@ function App() {
 
   console.log('RENDER App')
 
+  let timeoutId: number | undefined = undefined
+
   useEffect(() => {
     if (speed < 4 && timer > 0) {
-      setTimeout(() => {
-        setTimer((prevTimer: number) => {
-          const newTimer = (prevTimer - 0.1).toFixed(1)
-          return parseFloat(newTimer)
-        })
-      }, 100)
+      clearTimeout(timeoutId)
+      timeoutId = undefined
+      console.log(timeoutId)
+      if (!timeoutId) {
+        timeoutId = setTimeout(() => {
+          setTimer((prevTimer: number) => {
+            const newTimer = (prevTimer - 0.1).toFixed(1)
+            return parseFloat(newTimer)
+          })
+        }, 100)
+      }
+    } else {
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+        timeoutId = undefined
+      }
     }
-  })
+  }, [speed, timer])
 
   return (
     <div className="App">
+      <h1>The Long Walk</h1>
+      <h2>Warning/Ticket/Timer Simulator</h2>
       <Walk
         speed={speed}
         timer={timer}

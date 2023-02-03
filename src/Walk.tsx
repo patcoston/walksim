@@ -4,13 +4,13 @@ import './Walk.css'
 type NumberFunction = (n: number) => void
 
 interface WalkProps {
-  speed: number,
-  timer: number,
-  updateTimer: NumberFunction,
-  updateSpeed: NumberFunction,
+  speed: number
+  timer: number
+  updateTimer: NumberFunction
+  updateSpeed: NumberFunction
 }
 
-const Walk = ( props: WalkProps ) => {
+const Walk = (props: WalkProps) => {
   const [warnings, setWarnings] = useState(0)
   const [ticket, setTicket] = useState(false)
   const { speed, timer, updateTimer, updateSpeed } = props
@@ -70,8 +70,6 @@ const Walk = ( props: WalkProps ) => {
 
   return (
     <div>
-      <h1>The Long Walk</h1>
-      <h2>Warning/Ticket/Timer Simulator</h2>
       <div id="labels">
         <div>Timer: {`${timer}`}</div>
         <div>Warnings: {warnings}</div>
