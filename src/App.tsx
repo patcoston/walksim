@@ -14,7 +14,7 @@ function App() {
     setSpeed(speed)
   }
 
-  console.log('RENDER App')
+  //console.log('RENDER App')
 
   let timeoutId: number | undefined = undefined
 
@@ -26,7 +26,7 @@ function App() {
     if (speed < 40 && timer > 0) {
       clearTimeout(timeoutId)
       timeoutId = undefined
-      console.log(timeoutId)
+      console.log(`timeoutId = ${timeoutId}`)
       if (!timeoutId) {
         timeoutId = setTimeout(() => {
           setTimer((prevTimer: number) => {
@@ -34,8 +34,10 @@ function App() {
             return parseFloat(newTimer)
           })
         }, 100)
+        console.log(`timeout set ${timeoutId}`)
       }
     } else {
+      console.log('clearing timeout')
       if (timeoutId) {
         clearTimeout(timeoutId)
         timeoutId = undefined

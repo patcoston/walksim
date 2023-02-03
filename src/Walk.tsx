@@ -15,18 +15,18 @@ const Walk = (props: WalkProps) => {
   const [ticket, setTicket] = useState(false)
   const { speed, timer, updateTimer, updateSpeed } = props
 
-  console.log('RENDER Walk')
+  //console.log('RENDER Walk')
 
   useEffect(() => {
-    console.log(
-      Math.random(),
-      speed,
-      timer,
-      timer === 0,
-      timer === 30,
-      timer === 60,
-      timer === 90,
-    )
+    // console.log(
+    //   Math.random(),
+    //   speed,
+    //   timer,
+    //   timer === 0,
+    //   timer === 30,
+    //   timer === 60,
+    //   timer === 90,
+    // )
     if (timer === 0) {
       setTicket(true)
     } else if (timer === 30) {
