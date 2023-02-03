@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Walk from './Walk'
 import './App.css'
 
 function App() {
   const [timer, setTimer] = useState(120)
   const [speed, setSpeed] = useState(50)
-  const [timeoutId, setTimeoutId] = useState(-1)
+  const timeoutId = useRef(-1)
 
   const updateTimer = (timer: number) => {
     setTimer(timer)
@@ -23,24 +23,26 @@ function App() {
     // for example 4.3 mph would be 43 on the slider.
     // 40 = 4 mph
     if (speed < 40 && timer > 0) {
-      clearTimeout(timeoutId)
       console.log(`timeoutId = ${timeoutId}`)
-      if (timeoutId === -1) {
-        setTimeoutId(
-          setTimeout(() => {
-            setTimer((prevTimer: number) => {
-              const newTimer = (prevTimer - 0.1).toFixed(1)
-              return parseFloat(newTimer)
-            })
-          }, 100),
-        )
+      if (timeoutId.current === -1) {
+        setTimeout(() => {
+          setTimer((prevTimer: number) => {
+            const newTimer = (prevTimer - 0.1).toFixed(1)
+            return parseFloat(newTimer)
+          })
+        }, 100)
       }
     } else {
       console.log('clearing timeout')
+      // if speed is 40 or more, or timer is 0, then clear the timeout
       if (timeoutId) {
-        clearTimeout(timeoutId)
-        setTimeoutId(-1)
+        clearTimeout(timeoutId.current)
+        timeoutId.current = -1
       }
+    }
+    return () => {
+      clearTimeout(timeoutId.current)
+      timeoutId.current = -1
     }
   }, [speed, timer])
 
