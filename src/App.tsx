@@ -4,7 +4,7 @@ import './App.css'
 
 function App() {
   const [timer, setTimer] = useState(120)
-  const [speed, setSpeed] = useState(5)
+  const [speed, setSpeed] = useState(50)
 
   const updateTimer = (timer: number) => {
     setTimer(timer)
@@ -19,7 +19,11 @@ function App() {
   let timeoutId: number | undefined = undefined
 
   useEffect(() => {
-    if (speed < 4 && timer > 0) {
+    // slider's range is 0 to 100 so it slides smoothly
+    // but we divide the speed by 10 when displaying it for actual mph
+    // for example 4.3 mph would be 43 on the slider.
+    // 40 = 4 mph
+    if (speed < 40 && timer > 0) {
       clearTimeout(timeoutId)
       timeoutId = undefined
       console.log(timeoutId)

@@ -73,7 +73,7 @@ const Walk = (props: WalkProps) => {
       <div id="labels">
         <div>Timer: {`${timer}`}</div>
         <div>Warnings: {warnings}</div>
-        <div>Speed: {speed}</div>
+        <div>Speed: {speed / 10}</div>
         <div>Ticket: {ticket ? 'Yes' : 'No'}</div>
       </div>
       <div id="slider">
@@ -81,7 +81,7 @@ const Walk = (props: WalkProps) => {
         <input
           type="range"
           min={0}
-          max={10}
+          max={100}
           value={speed}
           onChange={handleSliderChange}
           id="walking-speed"
