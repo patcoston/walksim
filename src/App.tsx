@@ -20,8 +20,13 @@ function App() {
     // but we divide the speed by 10 when displaying it for actual mph
     // for example 4.3 mph would be 43 on the slider.
     // 40 = 4 mph
-    if (speed < 40 && timer > 0) {
-      if (timeoutId.current === -1) {
+    if (speed < 40) {
+      if (timer <= 0) {
+        clearInterval(timeoutId.current)
+        setTimer(0)
+        timeoutId.current = -1
+      } else if (timeoutId.current === -1) {
+        // if interval not set, then set interval
         const id = setInterval(() => {
           setTimer((prevTimer: number) => {
             const newTimer = (prevTimer - 0.1).toFixed(1)
