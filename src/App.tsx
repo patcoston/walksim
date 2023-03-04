@@ -23,26 +23,26 @@ function App() {
     // for example 4.3 mph would be 43 on the slider.
     // 40 = 4 mph
     if (speed < 40 && timer > 0) {
-      console.log(`timeoutId = ${timeoutId}`)
+      console.log(`timeoutId.current = ${timeoutId.current}`)
       if (timeoutId.current === -1) {
-        setTimeout(() => {
+        console.log('starting setInterval()')
+        const id = setInterval(() => {
           setTimer((prevTimer: number) => {
             const newTimer = (prevTimer - 0.1).toFixed(1)
             return parseFloat(newTimer)
           })
         }, 100)
+        console.log(`id = ${id}`)
+        timeoutId.current = id
       }
-    } else {
-      console.log('clearing timeout')
-      // if speed is 40 or more, or timer is 0, then clear the timeout
-      if (timeoutId) {
-        clearTimeout(timeoutId.current)
+    } else if (speed >= 40) {
+      // if speed is 40 or more, stop the timer
+      console.log(`timeoutId = ${timeoutId.current}`)
+      if (timeoutId.current !== -1) {
+        console.log('clearing 1 setInterval()')
+        clearInterval(timeoutId.current)
         timeoutId.current = -1
       }
-    }
-    return () => {
-      clearTimeout(timeoutId.current)
-      timeoutId.current = -1
     }
   }, [speed, timer])
 
