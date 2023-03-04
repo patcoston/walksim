@@ -5,7 +5,7 @@ import './App.css'
 function App() {
   const [timer, setTimer] = useState(120)
   const [speed, setSpeed] = useState(50)
-  const timeoutId = useRef(-1)
+  const intervalId = useRef(-1)
 
   const updateTimer = (timer: number) => {
     setTimer(timer)
@@ -22,10 +22,10 @@ function App() {
     // 40 = 4 mph
     if (speed < 40) {
       if (timer <= 0) {
-        clearInterval(timeoutId.current)
+        clearInterval(intervalId.current)
         setTimer(0)
-        timeoutId.current = -1
-      } else if (timeoutId.current === -1) {
+        intervalId.current = -1
+      } else if (intervalId.current === -1) {
         // if interval not set, then set interval
         const id = setInterval(() => {
           setTimer((prevTimer: number) => {
@@ -33,13 +33,13 @@ function App() {
             return parseFloat(newTimer)
           })
         }, 100)
-        timeoutId.current = id
+        intervalId.current = id
       }
     } else if (speed >= 40) {
       // if speed is 40 or more, stop the timer
-      if (timeoutId.current !== -1) {
-        clearInterval(timeoutId.current)
-        timeoutId.current = -1
+      if (intervalId.current !== -1) {
+        clearInterval(intervalId.current)
+        intervalId.current = -1
       }
     }
   }, [speed, timer])
